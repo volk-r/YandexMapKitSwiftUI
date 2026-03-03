@@ -14,7 +14,7 @@ struct YandexMapKitSwiftUIApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+			MapView()
         }
     }
 }
