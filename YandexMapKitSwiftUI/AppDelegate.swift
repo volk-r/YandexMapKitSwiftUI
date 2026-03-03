@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import YandexMapsMobile
 
 class AppDelegate: NSObject, UIApplicationDelegate {
 
@@ -14,6 +15,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
 	) -> Bool {
 		print("App Did Launch!")
+		YMKMapKit.setApiKey("Ваш API-ключ")
+		// YMKMapKit.setLocale("ru_RU") // если хотим установить конкретную локаль
+		YMKMapKit.sharedInstance()
 		return true
 	}
 	

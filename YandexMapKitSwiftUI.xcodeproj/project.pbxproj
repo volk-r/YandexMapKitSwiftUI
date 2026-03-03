@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1D3E0A18D883918239508250 /* Pods_YandexMapKitSwiftUI_YandexMapKitSwiftUIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED9537154E9517D13B46A637 /* Pods_YandexMapKitSwiftUI_YandexMapKitSwiftUIUITests.framework */; };
+		75183D59538901EDFFE0EF99 /* Pods_YandexMapKitSwiftUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF9CFFBA653839EB7FE1D9A8 /* Pods_YandexMapKitSwiftUITests.framework */; };
+		E4EB4F6FF1C7BD2C764766E1 /* Pods_YandexMapKitSwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48022905A67C130A94AF0940 /* Pods_YandexMapKitSwiftUI.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		3CDD95B02F56A33C0000C8AA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,14 +30,36 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		082EF3447C410366EE7D53C1 /* Pods-YandexMapKitSwiftUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexMapKitSwiftUI.debug.xcconfig"; path = "Target Support Files/Pods-YandexMapKitSwiftUI/Pods-YandexMapKitSwiftUI.debug.xcconfig"; sourceTree = "<group>"; };
 		3CDD95A22F56A33A0000C8AA /* YandexMapKitSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YandexMapKitSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CDD95AF2F56A33C0000C8AA /* YandexMapKitSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YandexMapKitSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CDD95B92F56A33C0000C8AA /* YandexMapKitSwiftUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YandexMapKitSwiftUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		470AA2831BD2AB99B2E4E708 /* Pods-YandexMapKitSwiftUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexMapKitSwiftUITests.debug.xcconfig"; path = "Target Support Files/Pods-YandexMapKitSwiftUITests/Pods-YandexMapKitSwiftUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		48022905A67C130A94AF0940 /* Pods_YandexMapKitSwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YandexMapKitSwiftUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		54BB391EF2778D3382268862 /* Pods-YandexMapKitSwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexMapKitSwiftUI.release.xcconfig"; path = "Target Support Files/Pods-YandexMapKitSwiftUI/Pods-YandexMapKitSwiftUI.release.xcconfig"; sourceTree = "<group>"; };
+		61F14F3BDE36AE111D28B722 /* Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests.debug.xcconfig"; path = "Target Support Files/Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests/Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		7198E4BF7C3CF2C0D9E22E89 /* Pods-YandexMapKitSwiftUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexMapKitSwiftUITests.release.xcconfig"; path = "Target Support Files/Pods-YandexMapKitSwiftUITests/Pods-YandexMapKitSwiftUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D023FB3AB00DE9A651C1337B /* Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests.release.xcconfig"; path = "Target Support Files/Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests/Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests.release.xcconfig"; sourceTree = "<group>"; };
+		ED9537154E9517D13B46A637 /* Pods_YandexMapKitSwiftUI_YandexMapKitSwiftUIUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YandexMapKitSwiftUI_YandexMapKitSwiftUIUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF9CFFBA653839EB7FE1D9A8 /* Pods_YandexMapKitSwiftUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YandexMapKitSwiftUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		3CDD96A82F56C43B0000C8AA /* Exceptions for "YandexMapKitSwiftUI" folder in "YandexMapKitSwiftUI" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 3CDD95A12F56A33A0000C8AA /* YandexMapKitSwiftUI */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3CDD95A42F56A33A0000C8AA /* YandexMapKitSwiftUI */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3CDD96A82F56C43B0000C8AA /* Exceptions for "YandexMapKitSwiftUI" folder in "YandexMapKitSwiftUI" target */,
+			);
 			path = YandexMapKitSwiftUI;
 			sourceTree = "<group>";
 		};
@@ -52,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4EB4F6FF1C7BD2C764766E1 /* Pods_YandexMapKitSwiftUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75183D59538901EDFFE0EF99 /* Pods_YandexMapKitSwiftUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,12 +96,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D3E0A18D883918239508250 /* Pods_YandexMapKitSwiftUI_YandexMapKitSwiftUIUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3917AD543F101CE69F444AA4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				48022905A67C130A94AF0940 /* Pods_YandexMapKitSwiftUI.framework */,
+				ED9537154E9517D13B46A637 /* Pods_YandexMapKitSwiftUI_YandexMapKitSwiftUIUITests.framework */,
+				FF9CFFBA653839EB7FE1D9A8 /* Pods_YandexMapKitSwiftUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3CDD95992F56A33A0000C8AA = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +120,8 @@
 				3CDD95B22F56A33C0000C8AA /* YandexMapKitSwiftUITests */,
 				3CDD95BC2F56A33C0000C8AA /* YandexMapKitSwiftUIUITests */,
 				3CDD95A32F56A33A0000C8AA /* Products */,
+				86FF9C4D84CC1FA696BD06C0 /* Pods */,
+				3917AD543F101CE69F444AA4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,6 +135,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		86FF9C4D84CC1FA696BD06C0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				082EF3447C410366EE7D53C1 /* Pods-YandexMapKitSwiftUI.debug.xcconfig */,
+				54BB391EF2778D3382268862 /* Pods-YandexMapKitSwiftUI.release.xcconfig */,
+				61F14F3BDE36AE111D28B722 /* Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests.debug.xcconfig */,
+				D023FB3AB00DE9A651C1337B /* Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests.release.xcconfig */,
+				470AA2831BD2AB99B2E4E708 /* Pods-YandexMapKitSwiftUITests.debug.xcconfig */,
+				7198E4BF7C3CF2C0D9E22E89 /* Pods-YandexMapKitSwiftUITests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -99,9 +155,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3CDD95C32F56A33C0000C8AA /* Build configuration list for PBXNativeTarget "YandexMapKitSwiftUI" */;
 			buildPhases = (
+				D03D7D88039C63CE4AD3787A /* [CP] Check Pods Manifest.lock */,
 				3CDD959E2F56A33A0000C8AA /* Sources */,
 				3CDD959F2F56A33A0000C8AA /* Frameworks */,
 				3CDD95A02F56A33A0000C8AA /* Resources */,
+				7CB868BE3DCE54F8D455FBBF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -111,8 +169,6 @@
 				3CDD95A42F56A33A0000C8AA /* YandexMapKitSwiftUI */,
 			);
 			name = YandexMapKitSwiftUI;
-			packageProductDependencies = (
-			);
 			productName = YandexMapKitSwiftUI;
 			productReference = 3CDD95A22F56A33A0000C8AA /* YandexMapKitSwiftUI.app */;
 			productType = "com.apple.product-type.application";
@@ -121,6 +177,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3CDD95C62F56A33C0000C8AA /* Build configuration list for PBXNativeTarget "YandexMapKitSwiftUITests" */;
 			buildPhases = (
+				A2CAEAD7ADA84677E9DC819D /* [CP] Check Pods Manifest.lock */,
 				3CDD95AB2F56A33C0000C8AA /* Sources */,
 				3CDD95AC2F56A33C0000C8AA /* Frameworks */,
 				3CDD95AD2F56A33C0000C8AA /* Resources */,
@@ -134,8 +191,6 @@
 				3CDD95B22F56A33C0000C8AA /* YandexMapKitSwiftUITests */,
 			);
 			name = YandexMapKitSwiftUITests;
-			packageProductDependencies = (
-			);
 			productName = YandexMapKitSwiftUITests;
 			productReference = 3CDD95AF2F56A33C0000C8AA /* YandexMapKitSwiftUITests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -144,9 +199,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3CDD95C92F56A33C0000C8AA /* Build configuration list for PBXNativeTarget "YandexMapKitSwiftUIUITests" */;
 			buildPhases = (
+				97C8D1A97004E3F94A955CBF /* [CP] Check Pods Manifest.lock */,
 				3CDD95B52F56A33C0000C8AA /* Sources */,
 				3CDD95B62F56A33C0000C8AA /* Frameworks */,
 				3CDD95B72F56A33C0000C8AA /* Resources */,
+				335CA70DB4183D90A5BDCE3A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -157,8 +214,6 @@
 				3CDD95BC2F56A33C0000C8AA /* YandexMapKitSwiftUIUITests */,
 			);
 			name = YandexMapKitSwiftUIUITests;
-			packageProductDependencies = (
-			);
 			productName = YandexMapKitSwiftUIUITests;
 			productReference = 3CDD95B92F56A33C0000C8AA /* YandexMapKitSwiftUIUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -230,6 +285,117 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		335CA70DB4183D90A5BDCE3A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests/Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests/Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests/Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7CB868BE3DCE54F8D455FBBF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YandexMapKitSwiftUI/Pods-YandexMapKitSwiftUI-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YandexMapKitSwiftUI/Pods-YandexMapKitSwiftUI-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YandexMapKitSwiftUI/Pods-YandexMapKitSwiftUI-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		97C8D1A97004E3F94A955CBF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A2CAEAD7ADA84677E9DC819D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YandexMapKitSwiftUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D03D7D88039C63CE4AD3787A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YandexMapKitSwiftUI-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3CDD959E2F56A33A0000C8AA /* Sources */ = {
@@ -390,15 +556,19 @@
 		};
 		3CDD95C42F56A33C0000C8AA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 082EF3447C410366EE7D53C1 /* Pods-YandexMapKitSwiftUI.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YandexMapKitSwiftUI/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Yandex MapKit Demo";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Для корректного определения вашего местоположения";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -423,15 +593,19 @@
 		};
 		3CDD95C52F56A33C0000C8AA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54BB391EF2778D3382268862 /* Pods-YandexMapKitSwiftUI.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = YandexMapKitSwiftUI/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Yandex MapKit Demo";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Для корректного определения вашего местоположения";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -456,6 +630,7 @@
 		};
 		3CDD95C72F56A33C0000C8AA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 470AA2831BD2AB99B2E4E708 /* Pods-YandexMapKitSwiftUITests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -477,6 +652,7 @@
 		};
 		3CDD95C82F56A33C0000C8AA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7198E4BF7C3CF2C0D9E22E89 /* Pods-YandexMapKitSwiftUITests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -498,6 +674,7 @@
 		};
 		3CDD95CA2F56A33C0000C8AA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61F14F3BDE36AE111D28B722 /* Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -517,6 +694,7 @@
 		};
 		3CDD95CB2F56A33C0000C8AA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D023FB3AB00DE9A651C1337B /* Pods-YandexMapKitSwiftUI-YandexMapKitSwiftUIUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
