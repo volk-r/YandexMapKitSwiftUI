@@ -17,8 +17,10 @@ struct MapView: View {
 				.ignoresSafeArea()
 				.environment(\.locationManager, locationManager)
 		}
-		.task {
-			await locationManager.currentUserLocation()
+		.onAppear() {
+			Task {
+				await locationManager.currentUserLocation()
+			}
 		}
 	}
 }
