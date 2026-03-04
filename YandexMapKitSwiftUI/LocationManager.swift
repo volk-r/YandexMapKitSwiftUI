@@ -70,10 +70,7 @@ private extension LocationManager {
 	}
 
 	func addUserLocationLayer() {
-		let windowScene = UIApplication.shared.connectedScenes.first(where: {
-			$0.activationState == .foregroundActive
-		}) as? UIWindowScene
-		let scale = windowScene?.screen.traitCollection.displayScale ?? .zero
+		let scale = CGFloat(mapView.mapWindow.scaleFactor)
 		let mapKit = YMKMapKit.sharedInstance()
 		let userLocationLayer = mapKit.createUserLocationLayer(with: mapView.mapWindow)
 
