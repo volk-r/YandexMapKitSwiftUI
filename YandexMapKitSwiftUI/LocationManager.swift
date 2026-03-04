@@ -25,6 +25,7 @@ final class LocationManager: NSObject {
 	override init() {
 		super.init()
 		setupLocation()
+		centerMapLocation(target: YMKPoint(latitude: 0, longitude: 0))
 	}
 
 	// MARK: - Public Methods
@@ -57,15 +58,15 @@ private extension LocationManager {
 				latitude: myLocation.coordinate.latitude,
 				longitude: myLocation.coordinate.longitude
 			),
-			map: mapView
+			animation: YMKAnimation(type: YMKAnimationType.smooth, duration: 0.5)
 		)
 	}
 
-	func centerMapLocation(target location: YMKPoint?, map: YMKMapView) {
+	func centerMapLocation(target location: YMKPoint?, animation: YMKAnimation? = nil) {
 		guard let location else { print("Failed to get user location"); return }
-		map.mapWindow.map.move(
+		mapView.mapWindow.map.move(
 			with: YMKCameraPosition(target: location, zoom: 18, azimuth: 0, tilt: 0),
-			animation: YMKAnimation(type: YMKAnimationType.smooth, duration: 0.5)
+			animation: animation
 		)
 	}
 
