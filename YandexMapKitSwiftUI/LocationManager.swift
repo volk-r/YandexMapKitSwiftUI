@@ -19,12 +19,17 @@ final class LocationManager: NSObject {
 	// MARK: - Private Properties
 
 	@ObservationIgnored private let manager = CLLocationManager()
+	@ObservationIgnored private let searchLocationService: SearchLocationService
 
 	@ObservationIgnored private var lastUserLocation: CLLocation? = nil
 
+	// MARK: - Init
+
 	override init() {
+		searchLocationService = SearchLocationService()
 		super.init()
 		setupLocation()
+		setupSearchService()
 		centerMapLocation(target: YMKPoint(latitude: 0, longitude: 0))
 	}
 
@@ -40,16 +45,6 @@ final class LocationManager: NSObject {
 			try? await Task.sleep(nanoseconds: 100_000_000)
 		}
 	}
-}
-
-// MARK: - Private Methods
-
-private extension LocationManager {
-
-	func setupLocation() {
-		manager.delegate = self
-		manager.requestAlwaysAuthorization()
-	}
 
 	func checkLocationAndCenter() {
 		guard let myLocation = lastUserLocation else { return }
@@ -62,8 +57,30 @@ private extension LocationManager {
 		)
 	}
 
+	func toggleFilter(_ filter: SearchOption) {
+		searchLocationService.setFilters(option: filter)
+		clearMap()
+	}
+}
+
+// MARK: - Private Methods
+
+private extension LocationManager {
+
+	func setupLocation() {
+		manager.delegate = self
+		manager.requestAlwaysAuthorization()
+	}
+
+	func setupSearchService() {
+		mapView.mapWindow.map.addCameraListener(with: searchLocationService)
+		searchLocationService.onSearchResult = { [weak self] response in
+			self?.addPlaceMarksOnMap(response: response)
+		}
+	}
+
 	func centerMapLocation(target location: YMKPoint?, animation: YMKAnimation? = nil) {
-		guard let location else { print("Failed to get user location"); return }
+		guard let location else { print("❌ Failed to get user location"); return }
 		mapView.mapWindow.map.move(
 			with: YMKCameraPosition(target: location, zoom: 18, azimuth: 0, tilt: 0),
 			animation: animation
@@ -71,23 +88,50 @@ private extension LocationManager {
 	}
 
 	func addUserLocationLayer() {
-		let scale = CGFloat(mapView.mapWindow.scaleFactor)
 		let mapKit = YMKMapKit.sharedInstance()
 		let userLocationLayer = mapKit.createUserLocationLayer(with: mapView.mapWindow)
 
 		userLocationLayer.setVisibleWithOn(true)
 		userLocationLayer.isHeadingModeActive = true
-		userLocationLayer.setAnchorWithAnchorNormal(
-			CGPoint(
-				x: 0.5 * mapView.frame.size.width * scale,
-				y: 0.5 * mapView.frame.size.height * scale
-			),
-			anchorCourse: CGPoint(
-				x: 0.5 * mapView.frame.size.width * scale,
-				y: 0.83 * mapView.frame.size.height * scale
-			)
-		)
 		userLocationLayer.setObjectListenerWith(self)
+	}
+
+	func clearMap() {
+		mapView.mapWindow.map.mapObjects.clear()
+	}
+
+	func addPlaceMarksOnMap(response: YMKSearchResponse) {
+		for searchResult in response.collection.children {
+			if let point = searchResult.obj?.geometry.first?.point {
+				// Задание координат точки
+				let placemark = mapView.mapWindow.map.mapObjects.addPlacemark()
+				placemark.geometry = point
+				// Делаем подпись
+				placemark.setTextWithText(
+					searchResult.obj?.descriptionText ?? "",
+					style: {
+						let textStyle = YMKTextStyle()
+						textStyle.size = 10.0
+						textStyle.placement = .bottom
+						textStyle.offset = 5.0
+						return textStyle
+					}()
+				)
+				// Настройка и добавление иконки
+				placemark.setIconWith(
+					UIImage(named: "SearchResult")!, // убедитесь, что иконка добавлена в Assets
+					style: YMKIconStyle(
+						anchor: CGPoint(x: 0, y: 0) as NSValue,
+						rotationType: YMKRotationType.rotate.rawValue as NSNumber,
+						zIndex: 0,
+						flat: true,
+						visible: true,
+						scale: 1.5,
+						tappableArea: nil
+					)
+				)
+			}
+		}
 	}
 }
 
@@ -116,7 +160,7 @@ extension LocationManager: CLLocationManagerDelegate {
 extension LocationManager: YMKUserLocationObjectListener {
 
 	func onObjectAdded(with view: YMKUserLocationView) {
-		view.arrow.setIconWith(UIImage(systemName: "location.north.fill")!)
+		view.arrow.setIconWith(UIImage(named:"UserArrow")!)
 
 		let pinPlacemark = view.pin.useCompositeIcon()
 
