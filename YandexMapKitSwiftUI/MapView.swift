@@ -11,6 +11,8 @@ struct MapView: View {
 
 	@State var locationManager = LocationManager()
 
+	@State private var alert: AlertDataModel?
+
 	var body: some View {
 		ZStack{
 			YandexMapView()
@@ -23,6 +25,18 @@ struct MapView: View {
 			Task {
 				await locationManager.currentUserLocation()
 			}
+		}
+		.onChange(of: locationManager.alertData) {
+			alert = locationManager.alertData
+		}
+		.alert(item: $alert) { data in
+			Alert(
+				title: Text(data.title),
+				message: Text(data.message),
+				dismissButton: .default(Text("OK")) {
+					alert = nil
+				}
+			)
 		}
 	}
 }

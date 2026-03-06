@@ -18,6 +18,8 @@ final class LocationManager: NSObject {
 
 	// MARK: - Private Properties
 
+	private(set) var alertData: AlertDataModel?
+
 	@ObservationIgnored private let manager = CLLocationManager()
 	@ObservationIgnored private let searchLocationService: SearchLocationService
 
@@ -101,20 +103,22 @@ private extension LocationManager {
 	}
 
 	func addPlaceMarksOnMap(response: YMKSearchResponse) {
-		var points = [YMKPoint]()
-		for searchResult in response.collection.children {
-			if let point = searchResult.obj?.geometry.first?.point {
-				points.append(point)
-			}
-		}
 		// Note that application must retain strong references to both
 		// cluster listener and cluster tap listener
 		let collection = mapView.mapWindow.map.mapObjects.addClusterizedPlacemarkCollection(with: self)
-		collection.addPlacemarks(
-			with: points,
-			image: UIImage(named: "SearchResult")!,
-			style: YMKIconStyle()
-		)
+		for searchResult in response.collection.children {
+			if let point = searchResult.obj?.geometry.first?.point {
+				let placemark = collection.addPlacemark()
+				// Задание координат точки
+				placemark.geometry = point
+				// Настройка и добавление иконки
+				placemark.setIconWith(UIImage(named: "SearchResult")!)
+				// Установка пользовательских данных для метки
+				placemark.userData = searchResult.obj
+				// Добавление обработки нажатия
+				placemark.addTapListener(with: self)
+			}
+		}
 		// Placemarks won't be displayed until this method is called. It must be also called
 		// to force clusters update after collection change
 		collection.clusterPlacemarks(withClusterRadius: 30, minZoom: 15)
@@ -272,3 +276,87 @@ extension LocationManager: YMKClusterListener {
 	}
 }
 
+// MARK: - YMKLayersGeoObjectTapListener
+
+extension LocationManager: YMKMapObjectTapListener {
+
+	func onMapObjectTap(with mapObject: YMKMapObject, point: YMKPoint) -> Bool {
+		guard let geoObject = mapObject.userData as? YMKGeoObject else {
+			return true
+		}
+
+		let type: GeoObjectType
+
+		if let toponym = (
+			geoObject.metadataContainer
+				.getItemOf(YMKSearchToponymObjectMetadata.self) as? YMKSearchToponymObjectMetadata
+		) {
+			type = .toponym(address: toponym.address.formattedAddress)
+		} else if let business = (
+			geoObject.metadataContainer
+				.getItemOf(YMKSearchBusinessObjectMetadata.self) as? YMKSearchBusinessObjectMetadata
+		) {
+			type = .business(
+				name: business.name,
+				workingHours: business.workingHours?.text,
+				categories: business.categories.map { $0.name }.joined(separator: ", "),
+				phones: business.phones.map { $0.formattedNumber }.joined(separator: ", "),
+				link: business.links.first?.link.href
+			)
+		} else {
+			type = .undefined
+		}
+
+		let title = geoObject.name ?? "Unnamed"
+		let description = geoObject.descriptionText ?? "No description"
+		let location = geoObject.geometry.first?.point
+		let uri = (
+			geoObject.metadataContainer.getItemOf(YMKUriObjectMetadata.self) as? YMKUriObjectMetadata
+		)?.uris.first?.value
+
+		var message = description + "\n"
+		if let location = location {
+			message += "Location: (\(location.latitude), \(location.longitude))" + "\n"
+		}
+		if let uri = uri {
+			message += "URI: \(uri)" + "\n"
+		}
+
+		switch type {
+		case .toponym(let address):
+			message += """
+			Type: Toponym
+			Address: \(address)
+			"""
+		case let .business(name, workingHours, categories, phones, link):
+			message += """
+			Type: Business
+			Name: \(name)
+			Working hours: \(workingHours ?? "No info")
+			Categories: \(categories ?? "No info")
+			Phones: \(phones ?? "No info")
+			Link: \(link ?? "No info")
+			"""
+		case .undefined:
+			message += "Undefined type"
+		}
+
+		alertData = AlertDataModel(title: title, message: message)
+
+		return true
+	}
+
+	// MARK: - Private nesting
+
+	enum GeoObjectType {
+		case toponym(address: String)
+		case business(
+			name: String,
+			workingHours: String?,
+			categories: String?,
+			phones: String?,
+			link: String?
+		)
+		case undefined
+	}
+}
