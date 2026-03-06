@@ -276,7 +276,7 @@ extension LocationManager: YMKClusterListener {
 	}
 }
 
-// MARK: - YMKLayersGeoObjectTapListener
+// MARK: - YMKMapObjectTapListener
 
 extension LocationManager: YMKMapObjectTapListener {
 
