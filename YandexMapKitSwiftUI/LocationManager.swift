@@ -101,10 +101,30 @@ private extension LocationManager {
 	}
 
 	func addPlaceMarksOnMap(response: YMKSearchResponse) {
+		var points = [YMKPoint]()
 		for searchResult in response.collection.children {
 			if let point = searchResult.obj?.geometry.first?.point {
-				// Задание координат точки
+				points.append(point)
+			}
+		}
+		// Note that application must retain strong references to both
+		// cluster listener and cluster tap listener
+		let collection = mapView.mapWindow.map.mapObjects.addClusterizedPlacemarkCollection(with: self)
+		collection.addPlacemarks(
+			with: points,
+			image: UIImage(named: "SearchResult")!,
+			style: YMKIconStyle()
+		)
+		// Placemarks won't be displayed until this method is called. It must be also called
+		// to force clusters update after collection change
+		collection.clusterPlacemarks(withClusterRadius: 30, minZoom: 15)
+	}
+
+	func addPlaceMarksOnMapWithTitle(response: YMKSearchResponse) {
+		for searchResult in response.collection.children {
+			if let point = searchResult.obj?.geometry.first?.point {
 				let placemark = mapView.mapWindow.map.mapObjects.addPlacemark()
+				// Задание координат точки
 				placemark.geometry = point
 				// Делаем подпись
 				placemark.setTextWithText(
@@ -157,6 +177,8 @@ extension LocationManager: CLLocationManagerDelegate {
 	}
 }
 
+// MARK: - YMKUserLocationObjectListener
+
 extension LocationManager: YMKUserLocationObjectListener {
 
 	func onObjectAdded(with view: YMKUserLocationView) {
@@ -185,5 +207,68 @@ extension LocationManager: YMKUserLocationObjectListener {
 	func onObjectRemoved(with view: YMKUserLocationView) {}
 	
 	func onObjectUpdated(with view: YMKUserLocationView, event: YMKObjectEvent) {}
+}
+
+// MARK: - YMKClusterTapListener
+
+extension LocationManager: YMKClusterTapListener {
+
+	func onClusterTap(with cluster: YMKCluster) -> Bool {
+		centerMapLocation(target: cluster.appearance.geometry)
+		return true
+	}
+}
+
+// MARK: - YMKClusterListener
+
+extension LocationManager: YMKClusterListener {
+
+	func onClusterAdded(with cluster: YMKCluster) {
+		// We setup cluster appearance and tap handler in this method
+		cluster.appearance.setIconWith(clusterImage(cluster.size))
+		cluster.addClusterTapListener(with: self)
+	}
+
+	func clusterImage(_ clusterSize: UInt) -> UIImage {
+		let scale = CGFloat(mapView.mapWindow.scaleFactor)
+		let text = (clusterSize as NSNumber).stringValue
+		let font = UIFont.systemFont(ofSize: ClusterConstants.FONT_SIZE * scale)
+		let size = text.size(withAttributes: [NSAttributedString.Key.font: font])
+		let textRadius = sqrt(size.height * size.height + size.width * size.width) / 2
+		let internalRadius = textRadius + ClusterConstants.MARGIN_SIZE * scale
+		let externalRadius = internalRadius + ClusterConstants.STROKE_SIZE * scale
+		let iconSize = CGSize(width: externalRadius * 2, height: externalRadius * 2)
+
+		UIGraphicsBeginImageContext(iconSize)
+		let ctx = UIGraphicsGetCurrentContext()!
+
+		ctx.setFillColor(UIColor.green.cgColor)
+		ctx.fillEllipse(in: CGRect(
+			origin: .zero,
+			size: CGSize(width: 2 * externalRadius, height: 2 * externalRadius)));
+
+		ctx.setFillColor(UIColor.white.cgColor)
+		ctx.fillEllipse(in: CGRect(
+			origin: CGPoint(x: externalRadius - internalRadius, y: externalRadius - internalRadius),
+			size: CGSize(width: 2 * internalRadius, height: 2 * internalRadius)));
+
+		(text as NSString).draw(
+			in: CGRect(
+				origin: CGPoint(x: externalRadius - size.width / 2, y: externalRadius - size.height / 2),
+				size: size),
+			withAttributes: [
+				NSAttributedString.Key.font: font,
+				NSAttributedString.Key.foregroundColor: UIColor.black])
+		let image = UIGraphicsGetImageFromCurrentImageContext()!
+
+		return image
+	}
+
+	private enum ClusterConstants {
+		static let PLACEMARKS_NUMBER = 2000
+		static let FONT_SIZE: CGFloat = 15
+		static let MARGIN_SIZE: CGFloat = 3
+		static let STROKE_SIZE: CGFloat = 3
+	}
 }
 
