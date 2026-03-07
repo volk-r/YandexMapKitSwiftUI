@@ -1,5 +1,5 @@
 # YandexMapKitSwiftUI
-Yandex MapKit SDK SwiftUI Demo application
+Yandex MapKit SDK SwiftUI Demo Application
 
 ## Build locally
 
