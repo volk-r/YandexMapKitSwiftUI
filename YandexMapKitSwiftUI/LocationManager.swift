@@ -32,6 +32,7 @@ final class LocationManager: NSObject {
 		super.init()
 		setupLocation()
 		setupSearchService()
+		setupSelectionListeners()
 		centerMapLocation(target: YMKPoint(latitude: 0, longitude: 0))
 	}
 
@@ -156,6 +157,11 @@ private extension LocationManager {
 				)
 			}
 		}
+	}
+
+	func setupSelectionListeners() {
+		mapView.mapWindow.map.addTapListener(with: self)
+		mapView.mapWindow.map.addInputListener(with: self)
 	}
 }
 
@@ -359,4 +365,30 @@ extension LocationManager: YMKMapObjectTapListener {
 		)
 		case undefined
 	}
+}
+
+// MARK: - YMKLayersGeoObjectTapListener
+
+extension LocationManager: YMKLayersGeoObjectTapListener {
+
+	func onObjectTap(with event: YMKGeoObjectTapEvent) -> Bool {
+		let event = event
+		let metadata = event.geoObject.metadataContainer.getItemOf(YMKGeoObjectSelectionMetadata.self)
+		if let selectionMetadata = metadata as? YMKGeoObjectSelectionMetadata {
+			mapView.mapWindow.map.selectGeoObject(withSelectionMetaData:selectionMetadata)
+			return true
+		}
+		return false
+	}
+}
+
+// MARK: - YMKMapInputListener
+
+extension LocationManager: YMKMapInputListener {
+
+	func onMapTap(with map: YMKMap, point: YMKPoint) {
+		mapView.mapWindow.map.deselectGeoObject()
+	}
+	
+	func onMapLongTap(with map: YMKMap, point: YMKPoint) {}
 }
