@@ -23,7 +23,10 @@ final class LocationManager: NSObject {
 	@ObservationIgnored private let manager = CLLocationManager()
 	@ObservationIgnored private let searchLocationService: SearchLocationService
 
+	@ObservationIgnored private let placemarkIcon = UIImage(named: "SearchResult")!
+
 	@ObservationIgnored private var lastUserLocation: CLLocation? = nil
+	@ObservationIgnored private var lastTappedPlacemark: YMKPlacemarkMapObject?
 
 	// MARK: - Init
 
@@ -113,7 +116,7 @@ private extension LocationManager {
 				// Задание координат точки
 				placemark.geometry = point
 				// Настройка и добавление иконки
-				placemark.setIconWith(UIImage(named: "SearchResult")!)
+				placemark.setIconWith(placemarkIcon)
 				// Установка пользовательских данных для метки
 				placemark.userData = searchResult.obj
 				// Добавление обработки нажатия
@@ -144,7 +147,7 @@ private extension LocationManager {
 				)
 				// Настройка и добавление иконки
 				placemark.setIconWith(
-					UIImage(named: "SearchResult")!, // убедитесь, что иконка добавлена в Assets
+					placemarkIcon,
 					style: YMKIconStyle(
 						anchor: CGPoint(x: 0, y: 0) as NSValue,
 						rotationType: YMKRotationType.rotate.rawValue as NSNumber,
@@ -249,28 +252,48 @@ extension LocationManager: YMKClusterListener {
 		let textRadius = sqrt(size.height * size.height + size.width * size.width) / 2
 		let internalRadius = textRadius + ClusterConstants.MARGIN_SIZE * scale
 		let externalRadius = internalRadius + ClusterConstants.STROKE_SIZE * scale
-		let iconSize = CGSize(width: externalRadius * 2, height: externalRadius * 2)
-
+		let sizeDelta: CGFloat = 2.1
+		let iconSize = CGSize(
+			width: externalRadius * sizeDelta,
+			height: externalRadius * sizeDelta
+		)
 		UIGraphicsBeginImageContext(iconSize)
 		let ctx = UIGraphicsGetCurrentContext()!
 
 		ctx.setFillColor(UIColor.green.cgColor)
 		ctx.fillEllipse(in: CGRect(
 			origin: .zero,
-			size: CGSize(width: 2 * externalRadius, height: 2 * externalRadius)));
+			size: CGSize(
+				width: sizeDelta * externalRadius,
+				height: sizeDelta * externalRadius
+			)
+		))
 
 		ctx.setFillColor(UIColor.white.cgColor)
 		ctx.fillEllipse(in: CGRect(
-			origin: CGPoint(x: externalRadius - internalRadius, y: externalRadius - internalRadius),
-			size: CGSize(width: 2 * internalRadius, height: 2 * internalRadius)));
+			origin: CGPoint(
+				x: externalRadius - internalRadius,
+				y: externalRadius - internalRadius
+			),
+			size: CGSize(
+				width: sizeDelta * internalRadius,
+				height: sizeDelta * internalRadius
+			)
+		))
 
 		(text as NSString).draw(
 			in: CGRect(
-				origin: CGPoint(x: externalRadius - size.width / 2, y: externalRadius - size.height / 2),
-				size: size),
+				origin: CGPoint(
+					x: externalRadius - size.width / sizeDelta,
+					y: externalRadius - size.height / sizeDelta
+				),
+				size: size
+			),
 			withAttributes: [
 				NSAttributedString.Key.font: font,
-				NSAttributedString.Key.foregroundColor: UIColor.black])
+				NSAttributedString.Key.foregroundColor: UIColor.black
+			]
+		)
 		let image = UIGraphicsGetImageFromCurrentImageContext()!
 
 		return image
@@ -291,6 +314,23 @@ extension LocationManager: YMKMapObjectTapListener {
 	func onMapObjectTap(with mapObject: YMKMapObject, point: YMKPoint) -> Bool {
 		guard let geoObject = mapObject.userData as? YMKGeoObject else {
 			return true
+		}
+
+		// Скейлим иконку кастомной точки
+		if let placemark = mapObject as? YMKPlacemarkMapObject {
+			let iconStyle = YMKIconStyle()
+			iconStyle.anchor = NSValue(cgPoint: CGPoint(x: 0.5, y: 0.5))
+			iconStyle.scale = 2.0
+			// Выставляем приоритет над обычными иконками
+			iconStyle.zIndex = 1
+			placemark.setIconWith(placemarkIcon, style: iconStyle)
+			// Возвращаем обычный размер иконки точке, выбранной перед этим
+			if lastTappedPlacemark != placemark {
+				cleanLastTappedPlacemark()
+			}
+			lastTappedPlacemark = placemark
+			// Не забываем снять выделение с ранее выделенного объекта на карте
+			mapView.mapWindow.map.deselectGeoObject()
 		}
 
 		let type: GeoObjectType
@@ -354,9 +394,14 @@ extension LocationManager: YMKMapObjectTapListener {
 		return true
 	}
 
+	private func cleanLastTappedPlacemark() {
+		guard let isValid = lastTappedPlacemark?.isValid, isValid else { return }
+		lastTappedPlacemark?.setIconWith(placemarkIcon)
+	}
+
 	// MARK: - Private nesting
 
-	enum GeoObjectType {
+	private enum GeoObjectType {
 		case toponym(address: String)
 		case business(
 			name: String,
@@ -374,6 +419,7 @@ extension LocationManager: YMKMapObjectTapListener {
 extension LocationManager: YMKLayersGeoObjectTapListener {
 
 	func onObjectTap(with event: YMKGeoObjectTapEvent) -> Bool {
+		cleanLastTappedPlacemark()
 		let event = event
 		let metadata = event.geoObject.metadataContainer.getItemOf(YMKGeoObjectSelectionMetadata.self)
 		if let selectionMetadata = metadata as? YMKGeoObjectSelectionMetadata {
