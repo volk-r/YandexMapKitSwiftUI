@@ -235,7 +235,9 @@ extension LocationManager: YMKClusterListener {
 
 	func onClusterAdded(with cluster: YMKCluster) {
 		// We setup cluster appearance and tap handler in this method
-		cluster.appearance.setIconWith(clusterImage(cluster.size))
+		let iconStyle = YMKIconStyle()
+		iconStyle.zIndex = 10
+		cluster.appearance.setIconWith(clusterImage(cluster.size), style: iconStyle)
 		cluster.addClusterTapListener(with: self)
 	}
 
