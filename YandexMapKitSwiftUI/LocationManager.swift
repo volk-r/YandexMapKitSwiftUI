@@ -435,6 +435,7 @@ extension LocationManager: YMKLayersGeoObjectTapListener {
 extension LocationManager: YMKMapInputListener {
 
 	func onMapTap(with map: YMKMap, point: YMKPoint) {
+		cleanLastTappedPlacemark()
 		mapView.mapWindow.map.deselectGeoObject()
 	}
 	
