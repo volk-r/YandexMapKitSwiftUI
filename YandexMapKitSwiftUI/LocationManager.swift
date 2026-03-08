@@ -125,7 +125,7 @@ private extension LocationManager {
 		}
 		// Placemarks won't be displayed until this method is called. It must be also called
 		// to force clusters update after collection change
-		collection.clusterPlacemarks(withClusterRadius: 30, minZoom: 15)
+		collection.clusterPlacemarks(withClusterRadius: 60, minZoom: 15)
 	}
 
 	func addPlaceMarksOnMapWithTitle(response: YMKSearchResponse) {
