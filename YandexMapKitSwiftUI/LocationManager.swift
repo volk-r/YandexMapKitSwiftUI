@@ -29,7 +29,7 @@ final class LocationManager: NSObject {
 	@ObservationIgnored private var lastTappedPlacemark: YMKPlacemarkMapObject?
 	@ObservationIgnored private var clusterCollection: YMKClusterizedPlacemarkCollection? {
 		didSet {
-			guard let oldValue else { return }
+			guard let oldValue, oldValue.isValid else { return }
 			oldValue.clear()
 			oldValue.parent.remove(with: oldValue)
 		}
@@ -111,13 +111,13 @@ private extension LocationManager {
 
 	func clearMap() {
 		mapView.mapWindow.map.mapObjects.clear()
-		cleanLastTappedPlacemark()
 	}
 
 	func addPlaceMarksOnMap(response: YMKSearchResponse) {
 		// Note that application must retain strong references to both
 		// cluster listener and cluster tap listener
-		let collection = mapView.mapWindow.map.mapObjects.addClusterizedPlacemarkCollection(with: self)
+		clusterCollection = mapView.mapWindow.map.mapObjects.addClusterizedPlacemarkCollection(with: self)
+		guard let collection = clusterCollection else { return }
 		for searchResult in response.collection.children {
 			if let point = searchResult.obj?.geometry.first?.point {
 				let placemark = collection.addPlacemark()
@@ -134,7 +134,6 @@ private extension LocationManager {
 		// Placemarks won't be displayed until this method is called. It must be also called
 		// to force clusters update after collection change
 		collection.clusterPlacemarks(withClusterRadius: 60, minZoom: 15)
-		clusterCollection = collection
 	}
 
 	func addPlaceMarksOnMapWithTitle(response: YMKSearchResponse) {
