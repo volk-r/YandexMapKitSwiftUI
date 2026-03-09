@@ -35,7 +35,7 @@ final class LocationManager: NSObject {
 
 	@ObservationIgnored private var lastUserLocation: CLLocation? = nil
 	@ObservationIgnored private var lastTappedPlacemark: YMKPlacemarkMapObject?
-	@ObservationIgnored private var lastPlacemarkLocation: Coordinates?
+	@ObservationIgnored private var lastPlacemarkLocation: YMKPoint?
 	@ObservationIgnored private var clusterCollection: YMKClusterizedPlacemarkCollection? {
 		didSet {
 			guard let oldValue, oldValue.isValid else { return }
@@ -351,7 +351,7 @@ extension LocationManager: YMKMapObjectTapListener {
 			}
 			lastTappedPlacemark = placemark
 			// Запоминаем координаты выделенной точки для восстановления иконки в новом кластере
-			lastPlacemarkLocation = Coordinates(
+			lastPlacemarkLocation = YMKPoint(
 				latitude: placemark.geometry.latitude,
 				longitude: placemark.geometry.longitude
 			)
@@ -438,11 +438,6 @@ extension LocationManager: YMKMapObjectTapListener {
 			link: String?
 		)
 		case undefined
-	}
-
-	private struct Coordinates {
-		let latitude: Double
-		let longitude: Double
 	}
 }
 
