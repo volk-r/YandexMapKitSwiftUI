@@ -24,9 +24,18 @@ final class LocationManager: NSObject {
 	@ObservationIgnored private let searchLocationService: SearchLocationService
 
 	@ObservationIgnored private let placemarkIcon = UIImage(named: "SearchResult")!
+	@ObservationIgnored private let selectedPlacemarkIconStyle: YMKIconStyle = {
+		let iconStyle = YMKIconStyle()
+		iconStyle.anchor = NSValue(cgPoint: CGPoint(x: 0.5, y: 0.5))
+		iconStyle.scale = 2.0
+		// Выставляем приоритет над обычными иконками
+		iconStyle.zIndex = 1
+		return iconStyle
+	}()
 
 	@ObservationIgnored private var lastUserLocation: CLLocation? = nil
 	@ObservationIgnored private var lastTappedPlacemark: YMKPlacemarkMapObject?
+	@ObservationIgnored private var lastPlacemarkLocation: Coordinates?
 	@ObservationIgnored private var clusterCollection: YMKClusterizedPlacemarkCollection? {
 		didSet {
 			guard let oldValue, oldValue.isValid else { return }
@@ -110,6 +119,7 @@ private extension LocationManager {
 	}
 
 	func clearMap() {
+		lastPlacemarkLocation = nil
 		mapView.mapWindow.map.mapObjects.clear()
 	}
 
@@ -124,7 +134,15 @@ private extension LocationManager {
 				// Задание координат точки
 				placemark.geometry = point
 				// Настройка и добавление иконки
-				placemark.setIconWith(placemarkIcon)
+				if let lastPlacemarkLocation,
+				   point.latitude == lastPlacemarkLocation.latitude,
+				   point.longitude == lastPlacemarkLocation.longitude
+				{
+					placemark.setIconWith(placemarkIcon, style: selectedPlacemarkIconStyle)
+					lastTappedPlacemark = placemark
+				} else {
+					placemark.setIconWith(placemarkIcon)
+				}
 				// Установка пользовательских данных для метки
 				placemark.userData = searchResult.obj
 				// Добавление обработки нажатия
@@ -326,17 +344,17 @@ extension LocationManager: YMKMapObjectTapListener {
 
 		// Скейлим иконку кастомной точки
 		if let placemark = mapObject as? YMKPlacemarkMapObject {
-			let iconStyle = YMKIconStyle()
-			iconStyle.anchor = NSValue(cgPoint: CGPoint(x: 0.5, y: 0.5))
-			iconStyle.scale = 2.0
-			// Выставляем приоритет над обычными иконками
-			iconStyle.zIndex = 1
-			placemark.setIconWith(placemarkIcon, style: iconStyle)
+			placemark.setIconWith(placemarkIcon, style: selectedPlacemarkIconStyle)
 			// Возвращаем обычный размер иконки точке, выбранной перед этим
 			if lastTappedPlacemark != placemark {
 				cleanLastTappedPlacemark()
 			}
 			lastTappedPlacemark = placemark
+			// Запоминаем координаты выделенной точки для восстановления иконки в новом кластере
+			lastPlacemarkLocation = Coordinates(
+				latitude: placemark.geometry.latitude,
+				longitude: placemark.geometry.longitude
+			)
 			// Не забываем снять выделение с ранее выделенного объекта на карте
 			mapView.mapWindow.map.deselectGeoObject()
 		}
@@ -403,6 +421,7 @@ extension LocationManager: YMKMapObjectTapListener {
 	}
 
 	private func cleanLastTappedPlacemark() {
+		lastPlacemarkLocation = nil
 		guard let isValid = lastTappedPlacemark?.isValid, isValid else { return }
 		lastTappedPlacemark?.setIconWith(placemarkIcon)
 	}
@@ -419,6 +438,11 @@ extension LocationManager: YMKMapObjectTapListener {
 			link: String?
 		)
 		case undefined
+	}
+
+	private struct Coordinates {
+		let latitude: Double
+		let longitude: Double
 	}
 }
 
