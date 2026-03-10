@@ -1,5 +1,5 @@
 # YandexMapKitSwiftUI
-Yandex MapKit SDK SwiftUI Demo Application
+SwiftUI Application with Yandex MapKit SDK
 
 ## Build locally
 
@@ -27,3 +27,11 @@ Yandex MapKit SDK SwiftUI Demo Application
 5. Build and run in Xcode.
 
 ## Sample overview
+
+<img width="315" height="625" alt="3" src="https://github.com/user-attachments/assets/7314de1f-323f-4f29-a84c-b4c69779e2ba" />
+<img width="315" height="625" alt="6" src="https://github.com/user-attachments/assets/d4600fa2-5677-4d5d-a558-b654b2f87313" />
+<img width="315" height="625" alt="7" src="https://github.com/user-attachments/assets/d898634b-d802-46a6-a754-bdcef7775428" />
+<img width="315" height="625" alt="10" src="https://github.com/user-attachments/assets/64df060c-4336-4cd8-bddf-ae319c41f29f" />
+<img width="315" height="625" alt="8" src="https://github.com/user-attachments/assets/47dc5284-c4ed-495e-9def-8250d15f70b7" />
+<img width="315" height="625" alt="4" src="https://github.com/user-attachments/assets/fe810691-36ed-44e2-b564-dcf259c97fb2" />
+
