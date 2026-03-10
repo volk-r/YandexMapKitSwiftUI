@@ -14,7 +14,16 @@ final class LocationManager: NSObject {
 
 	// MARK: - Public Properties
 
+	#if targetEnvironment(simulator) && arch(arm64)
+	let mapView: YMKMapView = {
+		// OpenGl is deprecated under M1 simulator, we should use Vulkan
+		let mapView = YMKMapView(frame: .zero, vulkanPreferred: true)!
+		mapView.mapWindow.map.mapType = .map
+		return mapView
+	}()
+	#else
 	let mapView = YMKMapView()
+	#endif
 
 	// MARK: - Private Properties
 
