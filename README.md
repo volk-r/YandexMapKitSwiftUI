@@ -1,6 +1,10 @@
 # YandexMapKitSwiftUI
 SwiftUI Application with Yandex MapKit SDK
 
+## Step-by-step guide
+
+[Внедряем Yandex MapKit SDK в SwiftUI приложение. Пишем Demo проект](https://habr.com/ru/sandbox/275752/)
+
 ## Build locally
 
 1. Clone the repository:
