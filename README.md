@@ -5,7 +5,7 @@ SwiftUI Application with Yandex MapKit SDK
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yandex/mapkit-ios-demo.git
+    git clone https://github.com/volk-r/YandexMapKitSwiftUI.git
     ```
 
 2. Execute the following command in your project's directory to install dependencies:
