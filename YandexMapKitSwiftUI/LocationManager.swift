@@ -335,7 +335,6 @@ extension LocationManager: YMKClusterListener {
 	}
 
 	private enum ClusterConstants {
-		static let PLACEMARKS_NUMBER = 2000
 		static let FONT_SIZE: CGFloat = 15
 		static let MARGIN_SIZE: CGFloat = 3
 		static let STROKE_SIZE: CGFloat = 3
